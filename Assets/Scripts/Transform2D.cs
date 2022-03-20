@@ -24,7 +24,11 @@ public class Transform2D : MonoBehaviour
         triangles[2] = 1;
 
         mesh.triangles = triangles;
-        RotateScale(45 * Mathf.Deg2Rad, 2, 1);
+        //RotateScale(45 * Mathf.Deg2Rad, 2, 1);
+
+
+        //RotateAroundPosition(360,1, 1);
+        ShearY(1.5f);
 
     }
     void Translate2D(float tx, float ty)
@@ -186,6 +190,71 @@ public class Transform2D : MonoBehaviour
         mesh.vertices = vertices;
     }
     // Update is called once per frame
+    void ShearY(float shy)
+    {
+        float[,] matrixf = new float[3, 3];
+        matrixf[0, 0] = 1; matrixf[0, 1] = 0; matrixf[0, 2] = 0;
+        matrixf[1, 0] = 0; matrixf[1, 1] = 1; matrixf[1, 2] = 0;
+        matrixf[2, 0] = 0; matrixf[0, 1] = 0; matrixf[2, 2] = 1;
+
+        matrixf[0, 1] = shy;
+        for (int v = 0 ; v < vertices.Length; v++)
+        {
+            vertices[v] = multiply(matrixf, vertices[v]);
+            Debug.Log("Gu");
+
+        }
+        
+        foreach (float f in matrixf)
+        {
+            Debug.Log(f);
+        }
+        
+        mesh.vertices = vertices;
+    }
+    void ShearX(float shx)
+    {
+        float[,] matrix = new float[3, 3];
+        matrix[0, 0] = 1; matrix[0, 1] = 0; matrix[0, 2] = 0;
+        matrix[1, 0] = shx; matrix[1, 1] = 1; matrix[1, 2] = 0;
+        matrix[2, 0] = 0; matrix[0, 1] = 0; matrix[2, 2] = 1;
+
+        for (int v = 0; v < vertices.Length; v++)
+        {
+            vertices[v] = multiply(matrix, vertices[v]);
+            
+        }
+        mesh.vertices = vertices;
+    }
+
+    void ReflectAroundX()
+    {
+        float[,] matrix = new float[3, 3];
+        matrix[0, 0] = 1; matrix[0, 1] = 0; matrix[0, 2] = 0;
+        matrix[1, 0] = 0; matrix[1, 1] = -1; matrix[1, 2] = 0;
+        matrix[2, 0] = 0; matrix[0, 1] = 0; matrix[2, 2] = 1;
+
+        for (int v = 0; v < vertices.Length; v++)
+        {
+            vertices[v] = multiply(matrix, vertices[v]);
+
+        }
+        mesh.vertices = vertices;
+    }
+    void ReflectAroundY()
+    {
+        float[,] matrix = new float[3, 3];
+        matrix[0, 0] = -1; matrix[0, 1] = 0; matrix[0, 2] = 0;
+        matrix[1, 0] = 0; matrix[1, 1] = 1; matrix[1, 2] = 0;
+        matrix[2, 0] = 0; matrix[0, 1] = 0; matrix[2, 2] = 1;
+
+        for (int v = 0; v < vertices.Length; v++)
+        {
+            vertices[v] = multiply(matrix, vertices[v]);
+
+        }
+        mesh.vertices = vertices;
+    }
     void Update()
     {
         //Scale2D(1.0001f, 1);
@@ -194,7 +263,6 @@ public class Transform2D : MonoBehaviour
         //Rotate2DMatrix(20 * Time.deltaTime * Mathf.Deg2Rad);
         //Scale2DMatrixHM (1.001f, 1.001f);
         //Rotate2DMatrixHM(20 * Time.deltaTime * Mathf.Deg2Rad);
-        RotateAroundPosition(20 * Mathf.Deg2Rad * Time.deltaTime, 0 , 0);
-        
+        //RotateAroundPosition(20 * Mathf.Deg2Rad * Time.deltaTime, 0 , 0);
     }
 }
