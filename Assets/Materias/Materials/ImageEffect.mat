@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ImageEffect
-  m_Shader: {fileID: 4800000, guid: d6438753752bc6846927dff3914627a7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 24123c813f6b3114d95e05e82389e561, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
